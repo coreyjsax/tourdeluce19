@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+    <html>
+        <head>
+            <title>Parcel Sandbox</title>
+            <meta charset="UTF-8" />
+            <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link rel="stylesheet" type="text/css" href="./style.css"></link>
+		    <title>Tour de Lucé Draft</title>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>	
+		    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.3/semantic.js"></script>
+            <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+            
+            
+            <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.3/semantic.min.css">
+            <link rel="stylesheet" type="text/css" href="css/app.css">
+            <link rel="stylesheet" type="text/css" href="css/fonts.css">
+            <link rel="stylesheet" type="text/css" href="src/carousel.css">
+            <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+            <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+
+        </head>
+        <body>
+            <main id="app" class="main">
+                <div class="logo container">
+                    <img class="logo-image" style="height:160px" src="img/logo@2x.png" alt="logo">
+                    <h1 class="headline">TOUR DE LUCÉ</h1>
+                    <H3 class="subhead">FREESTYLE BIKE TOUR</H3>
+                    <br>
+                    <p class="subhead date">Saturday, June 2, 2019 • Register now!</p>
+                </div>
+
+                <div class="action container">
+                    <button class="ui pink large button" data-action="modal">Register Now!</button>
+                    <button class="ui pink large button" data-action="log-in">Log-In</button>
+                </div>
+
+                
+
+                <div class="results">
+                   <span>Test reactive layout</span>
+                   
+                    <h4 data-binding="firstName"></h4>
+                    <h4 data-binding="lastName"></h4>
+                    <h4 data-binding="email"></h4>
+                    <h4 data-binding="qty"></h4>
+                    <h4 data-binding="phone"></h4>
+                    <h4 data-binding="starting_loc"></h4>
+                   
+                    <span>
+                       additional rider 2 name <h4 data-binding="additionalRiders[0].name"></h4>
+                       additional rider 2 email <h4 data-binding="additionalRiders[0].email"></h4>
+                   </span> 
+                   
+                   
+                    
+                    <!-- <div class="next-button-container"><button id="button">Next >></button></div> -->
+
+                </div>
+                
+            </main>
+            
+            <div id="modal" class="ui modal">
+                <i class="close icon"></i>
+                <div id="modal-header" class="modal header">
+                    <div><img id="modal-wheel" src="img/modal_wheel.png"></div>
+                </div>
+                <div class="body content"></div>
+            </div>
+
+            <script type="module" src="./index.js"></script>
+            <script src="./src/carousel.js"></script>
+            
+        </body>
+    </html>

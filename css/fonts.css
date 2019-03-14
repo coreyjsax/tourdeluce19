@@ -1,0 +1,92 @@
+@font-face {
+    font-family: 'introscriptr-h2base';
+    src: url('/font_files/introscriptr-h2base-webfont.woff2') format('woff2'),
+         url('/font_files/introscriptr-h2base-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'introheadr-base';
+    src: url('/font_files/introheadr-base-webfont.woff2') format('woff2'),
+         url('/font_files/introheadr-base-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'introrustg-base2line';
+    src: url('font_files/introrustg-base2line-webfont.woff2') format('woff2'),
+         url('font_files/introrustg-base2line-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'bebas_neueregular';
+    src: url('font_files/bebasneueregular-webfont.woff2') format('woff2'),
+         url('font_files/bebasneueregular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face {
+    font-family: 'bebas_neueregular';
+    src: url('font_files/bebasneue-webfont.woff2') format('woff2'),
+         url('font_files/bebasneue-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face {
+    font-family: 'bebas_neuelight';
+    src: url('font_files/bebasneuelight-webfont.woff2') format('woff2'),
+         url('font_files/bebasneuelight-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face {
+    font-family: 'bebas_neuebook';
+    src: url('font_files/bebasneuebook-webfont.woff2') format('woff2'),
+         url('font_files/bebasneuebook-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face {
+    font-family: 'bebas_neuethin';
+    src: url('font_files/bebasneue-thin-webfont.woff2') format('woff2'),
+         url('font_files/bebasneue-thin-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face {
+    font-family: 'bebas_neuebold';
+    src: url('font_files/bebasneuebold-webfont.woff2') format('woff2'),
+         url('font_files/bebasneuebold-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}

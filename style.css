@@ -1,0 +1,18 @@
+body {
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    font-family: 'Helvetica neue', Helvetica, sans-serif;
+    justify-content: center;
+}
+
+.add_rider {
+    
+}
+
+.results {
+    margin-top: 50px;
+    font-weight: 500;
+    text-align: center;
+}
