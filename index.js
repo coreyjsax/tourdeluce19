@@ -1,8 +1,7 @@
 import  tools  from '/src/tools.js'
-import Form from '/src/components.js'
+import Form from '/src/components/form.js'
 
 let modal = document.getElementById('modal');
-
 
 const createState = (state) => {
     return new Proxy(state, {
@@ -35,10 +34,6 @@ const state = createState({
     
 });
 
-const createGallery = () => {
- 
-}
-
 const render = () => {
         
     let prevButton = document.getElementById('prev_button')
@@ -55,42 +50,29 @@ const render = () => {
         if (binding === 'page'){
             let page = state[binding];
 
-            let hidePages = () => {
-
-                submit.style.display = 'none'
-
-                for (let i = 0; i < pages.length; i++){
-                    pages[i].style.display = "none";
-                }
-
-                for (let i = 0; i < head.length; i++){
-                    head[i].style.display = 'none'
-                }
-            }
-
             switch(page){
                 case 0:
-                    hidePages()
+                    tools.hidePages(pages, head, submit)
                     pages[0].style.display = 'block';
                     prevButton.style.display = 'none';
                     pages[0].style.display = 'block';
                     head[0].style.display = "block"
                     break;
                 case 1:
-                    hidePages()
+                    tools.hidePages(pages, head, submit)
                     pages[1].style.display = 'block';
                     prevButton.style.display = 'block';
                     head[1].style.display="block"
                     break;
                 case 2: 
-                    hidePages();
+                    tools.hidePages(pages, head, submit);
                     pages[2].style.display = 'block';
                     prevButton.style.display = 'block';
                     head[1].style.display="block"
                     nextButton.style.display="block"
                     break;
                 case 3:
-                    hidePages();
+                    tools.hidePages(pages, head, submit);
                     pages[3].style.display = 'block';
                     prevButton.style.display = 'block';
                     head[2].style.display= "block";
@@ -98,7 +80,7 @@ const render = () => {
                     submit.style.display = 'block'
                     break;
                 case 4:
-                    hidePages();
+                    tools.hidePages(pages, head, submit);
                     pages[4].style.display = 'block';
                     nextButton.style.display = 'none';
                     prevButton.style.display = 'none'
@@ -115,48 +97,24 @@ const render = () => {
                     }
         } else if (binding === 'qty') {
             let qty = state[binding]
-            
             let aR = additionalRiders;
-            let buttonDest = document.getElementById('slider-toggle')
             
-
-            const hideAddRiders = (qty) => {
-                for (let i = 0; i < aR.length; i++) {
-                    aR[i].style.display = "none";
-                }
-
-                for (let i = 0; i < (qty - 1); i++){
-                    aR[i].style.display = "block"
-                  //  aR[i].classList.add('slide');
-                }
-                
-            }
-            hideAddRiders(qty)
+            tools.hideAddRiders(qty, aR)
             document.querySelector(`[data-binding='${binding}']`).innerHTML = state[binding];
             document.querySelector(`[data-model='${binding}']`).value = state[binding];
-            let createSliderButtons = (qty) => {
-                console.log(qty)
-                let html = '';
-                for (let i = 0; i < qty-1; i++){
-                    html += /*html*/`<a href="#slide-${i+1}" class="ui circular button">${i+1}</a>`
-                }
-                return html
-            }
+            
             let sliderButtonDest = document.getElementById('slider-toggle');
-            sliderButtonDest.innerHTML = createSliderButtons(qty);
+            sliderButtonDest.innerHTML = Form.createSliderButtons(qty);
         
         } else {
-            
             document.querySelector(`[data-binding='${binding}']`).innerHTML = state[binding];
             document.querySelector(`[data-model='${binding}']`).value = state[binding];
-
         }
     });
 };
 
 /* buttons, dropdowns etc */
 const buttons = document.querySelectorAll('button');
-const select = document.querySelectorAll('select');
 
 const getModal = (data) => {
     $(modal).modal({
@@ -176,7 +134,7 @@ const getDataFields = () => {
 }
 
 const getData = () => {
-    getDataFields()
+    tools.getDataFields()
     .then((data) => {
         
         makeForm(data)
@@ -288,32 +246,6 @@ const makeForm = (formFields) => {
         }
     }();
     
-    let descField = (tickets) => {
-        return /*html*/ `
-        <div class="" data-fsId="${tickets.id}">
-            <label>${tickets.label}</label>
-            <div class="form-description"><p>${tickets.description}</p></div>
-        </div>
-        `
-    };
-
-    const footerButtons = (pg) => {
-        console.log(pg)
-            return /*html*/`
-            <div>
-                <a id="next_button" href="#/" class="ui pink button labeled icon right" style="float:right" data-action="next" data-model="page">
-                    next <i class="right arrow icon"></i>
-                </a>
-                <a id="prev_button" href="#/" class="ui button labeled icon left" style="float:left" data-action="prev" data-model="page">
-                    prev <i class="left arrow icon"></i>
-                </a>
-                <a id="submit" href="#/" class="ui button pink" style="float:right" data-action="submit" data-model="page">Submit</a>
-                <div id="stuff" data-binding="page"></div>
-            </div>
-        `;
-    }
-
-    
     const headerContent = (pg) => {
         console.log(pg)
         if (pg === 0){
@@ -360,7 +292,7 @@ const makeForm = (formFields) => {
             
             <div id="ticket-tab" class="tickets tab hide">
             <h4 class="ui class dividing header">Registration</h4>
-                ${descField(f.tickets)}
+                ${Form.descField(f.tickets)}
                
             </div>
             <div id="reg-tab" class="registration tab hide">
@@ -374,7 +306,6 @@ const makeForm = (formFields) => {
                         ${Form.textInput(f.email, 'email', 'email')}
                         ${Form.textInput(f.phone, 'phone', 'phone')}
                     </div>
-
                         ${Form.select(f.starting_loc, 'Choose starting location', 'starting_loc')}
                 
             </div>
@@ -395,7 +326,7 @@ const makeForm = (formFields) => {
                 thank you
             </div>
             <div id="form-footer" class="form-footer">
-                ${footerButtons(state.page)}
+                ${Form.footerButtons()}
             </div>
 
         </form>

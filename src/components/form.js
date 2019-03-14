@@ -1,4 +1,31 @@
 const form = {
+    descField: function(tickets){
+        return /*html*/ `
+        <div class="" data-fsId="${tickets.id}">
+            <label>${tickets.label}</label>
+            <div class="form-description"><p>${tickets.description}</p></div>
+        </div>
+        `
+    },
+    headerContent: function(pg){
+        if (pg === 0){
+            return /*html*/ `
+                <h4 class="">$25 Tour de Lucé Registration</h4>
+            `;
+        } else {
+            return /*html*/ `
+            <div class="">
+            <label>Tickets</label>
+            <select id="qty" data-model="qty" type="select">
+                <option value="">select qty</option>
+                ${formData.ticketQtySel.map(q => /*html*/ `
+                    <option value="${q}" data-index="${q-2}">${q}</option>
+                `).join('')}
+            </select>
+        </div>
+            `;
+        }
+    },
     textInput: function(data, placeholder, dataModel){
         return /*html*/`
             <div class="field">
@@ -12,7 +39,7 @@ const form = {
             ${data.map(input => 
    /*html*/ `<div class="field location" data-fsId="${input.id}" >
                 <label>${input.label}</label>
-                <select id="starting-loc" class="ui search selection dropdown" data-model="${dataModel}" type="select">
+                <select id="starting-loc" name="${input.name}" class="ui search selection dropdown" data-model="${dataModel}" type="select" data-fsId="${input.id}">
                     <option value="">${placeholder}</option>		
                 ${input.options.map(option => 
                     /*html*/`<option value="${option.label}">${option.label}</option>`
@@ -31,7 +58,7 @@ const form = {
                     ${rider.data.map(input => 
             /*html*/`<div class="field rider" data-fsId="${input.id}">
                             <label>${input.label}</label>
-                            <input name="${input.name}" type="text" placeholder="${input.label}" data-model="additionalRiders[${index}].${input.type}">
+                            <input name="${input.name}" type="text" placeholder="${input.label}" data-model="additionalRiders[${index}].${input.type}" data-fsId="${input.id}">
                         </div>`
                     ).join('')}
                 </div>`
@@ -48,7 +75,7 @@ const form = {
         <div class="fields">
             <div class="seven wide field">
             <label>Card Number</label>
-            <input type="text" name="card[number]" maxlength="16" placeholder="Card" data-fsId="${data.credit_card[0].id}">
+            <input type="text" name="${data.credit_card[0].name}" maxlength="16" placeholder="Card" data-fsId="${data.credit_card[0].id}">
             </div>
             <div class="three wide field">
             <label>CVC</label>
@@ -87,7 +114,7 @@ const form = {
             </div>
             <div class="field">
             <label>billing last name</label>
-                <input type="text" name="billing_first_Name" placeholder="billing last name" data-fsId=${data.billing_name[0].id}>
+                <input type="text" name="billing_last_Name" placeholder="billing last name" data-fsId=${data.billing_name[0].id}>
             </div>
         </div>
         <div class="two equal width fields">
@@ -101,9 +128,34 @@ const form = {
             </div>
             <div id="total-due-section" class="total-due">
                 <h4>Total Due ${totalDue * 25}</h4>
+                <input type="hidden" value="${totalDue * 25}">
             </div>
         </div>
         `
+    },
+    createSliderButtons: (qty) => {
+        let html = '';
+        for (let i = 0; i < qty-1; i++){
+            html += /*html*/`
+            <a href="#slide-${i+1}" class="ui circular button">
+                ${i+1}
+            </a>`
+        }
+        return html
+    },
+    footerButtons: function(){
+        return /*html*/`
+            <div>
+                <a id="next_button" href="#/" class="ui pink button labeled icon right" style="float:right" data-action="next" data-model="page">
+                    next <i class="right arrow icon"></i>
+                </a>
+                <a id="prev_button" href="#/" class="ui button labeled icon left" style="float:left" data-action="prev" data-model="page">
+                    prev <i class="left arrow icon"></i>
+                </a>
+                <a id="submit" href="#/" class="ui button pink" style="float:right" data-action="submit" data-model="page">Submit</a>
+                <div id="stuff" data-binding="page"></div>
+            </div>
+        `;
     },
     totalDue: function(total){
         let destination = document.getElementById('total-due-section');
