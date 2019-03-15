@@ -6,6 +6,9 @@ const tools = {
         .then((res) => res.json())
         .catch((err) => err)
     },
+    getArrayFromNum: (end, start) => {
+        return Array(parseInt(end) - start + 1).fill().map((_, idx) => start + idx);
+    },
     hidePages: (pages, head) => {
 
         submit.style.display = 'none'
@@ -30,28 +33,37 @@ const tools = {
         let selectInputs = form.querySelectorAll('select');
 
         let textObj = Array.from(textInputs).map(input => {
-            
+            let dynamicField = `field_${input.getAttribute('data-fsid')}`;
             let obj = {
-                name: input.name, 
+               /* name: input.name, 
                 value: input.value, 
-                fSid: input.getAttribute('data-fsid')
+                fSid: input.getAttribute('data-fsid'), */
+                value: input.value,
+                name: input.name,
+                [dynamicField]: input.value,
+                fsid: input.getAttribute('data-fsid')
+
             }
             return obj;
         });
 
         let selectObj = Array.from(selectInputs).map(input => {
-            
+            let dynamicField = `field_${input.getAttribute('data-fsid')}`;
+            let fieldId = input.getAttribute('data-fsid');
             let obj = {
                 name: input.name,
                 value: input.value,
-                fSid: input.getAttribute('data-fsid')
+                fsid: input.getAttribute('data-fsid'),
+                [dynamicField]: input.value
             }
             return obj;
         });
 
         let formData = textObj.concat(selectObj);
+        console.log(formData)
         let newData = this.arrayToObject(formData, "name"); 
-        console.log(newData)
+        
+        this.submitOrder(formData, '123')
     },
     arrayToObject: function(array, keyField){
         let data = array.reduce((obj, item) => {
@@ -69,7 +81,7 @@ const tools = {
             headers:{ 'Content-Type': 'application/json' }
         })
         .then(res => res.json())
-        .then(response => alert('Success:', JSON.stringify(response)))
+        .then(response => console.log(response))
         .catch(err => console.log('Error:', err));
     }
 }

@@ -7,7 +7,8 @@ const form = {
         </div>
         `
     },
-    headerContent: function(pg){
+    headerContent: function(pg, formData){
+        console.log(formData)
         if (pg === 0){
             return /*html*/ `
                 <h4 class="">$25 Tour de Lucé Registration</h4>
@@ -16,7 +17,7 @@ const form = {
             return /*html*/ `
             <div class="">
             <label>Tickets</label>
-            <select id="qty" data-model="qty" type="select">
+            <select id="qty" name="qty" data-model="qty" type="select" data-fsId="64672703">
                 <option value="">select qty</option>
                 ${formData.ticketQtySel.map(q => /*html*/ `
                     <option value="${q}" data-index="${q-2}">${q}</option>
@@ -79,13 +80,13 @@ const form = {
             </div>
             <div class="three wide field">
             <label>CVC</label>
-            <input type="text" name="card[cvc]" maxlength="3" placeholder="CVC" data-fsId="${data.ccv[0].id}">
+            <input type="text" name="cvc" maxlength="3" placeholder="CVC" data-fsId="${data.ccv[0].id}">
             </div>
             <div class="six wide field">
             <label>Expiration</label>
             <div class="two fields">
                 <div class="field">
-                <select class="ui fluid search dropdown" name="card[expire-month]" data-fsId="${data.expiration[0].id}">
+                <select class="ui fluid search dropdown" name="expire-month" data-fsId="${data.expiration[0].id}">
                     <option value="">Month</option>
                     <option value="1">January</option>
                     <option value="2">February</option>

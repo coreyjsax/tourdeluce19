@@ -124,15 +124,6 @@ const getModal = (data) => {
     }).modal('show').modal({dimmerSettings:{closable: false}})
 }
 
-/* formstack helpers */
-
-const getDataFields = () => {
-    let url = `https://pl-admin-api-v3-coreyjsax.c9users.io/tourdeluce/form/3002951`;
-	return fetch(url)
-	.then((res) => res.json())
-	.catch((err) => err)
-}
-
 const getData = () => {
     tools.getDataFields()
     .then((data) => {
@@ -141,32 +132,28 @@ const getData = () => {
         state.data = data;
         console.log(data)
         const listeners = document.querySelectorAll('[data-model]');
-      //  let prevButton = document.getElementById('prev_button');
-       // let nextButton = document.getElementById('next_button');
-       // const buttons = document.querySelectorAll('.button');
+      
+        Array.from(listeners).map(l => {
 
-        for (let i = 0; i < listeners.length; i++){
+            const name = l.dataset.model;
 
-            const name = listeners[i].dataset.model;
-
-            if (listeners[i].type == "text"){
-                listeners[i].addEventListener('keyup', (event) => {
-                    state[name] = listeners[i].value;
-                    console.log(state);
+            if (l.type == "text"){
+                l.addEventListener('keyup', (event) => {
+                    state[name] = l.value;
                 });
-            }  else if (listeners[i].type === "select-one"){
-                
-                let select = listeners[i]
+            }  else if (l.type === "select-one"){
+            
+                let select = l
                 
                 select.addEventListener('change', (event) => {
                     state[name] = select.value;
                     if (select.getAttribute('id') == 'qty'){
-                       console.log(state.qty)
+                       console.log(state)
                        Form.totalDue(state.qty)
                     }
                 })
-            }  else if (listeners[i].dataset.model == "page") {
-                let pageButtons = listeners[i];
+            }  else if (l.dataset.model == "page") {
+                let pageButtons = l;
                 pageButtons.addEventListener('click', (event) => {
                     let target = event.target;
                     let action = target.dataset.action;
@@ -175,13 +162,13 @@ const getData = () => {
                     } else if (action === 'prev'){
                         state[name] += -1;
                     } else if (action === 'submit'){
-                        state[name] += 1;
+                        //state[name] += 1;
                         tools.processOrder();
                         
                     }
                 })
             }
-        }
+        })
 
        buttons.forEach((button) => {
             const action = button.dataset.action;
@@ -197,10 +184,6 @@ const getData = () => {
 
     })
 }
-/* tools */
-const getArrayFromNum = (end, start) => {
-    return Array(parseInt(end) - start + 1).fill().map((_, idx) => start + idx);
-}
 
 /* build form */
 const makeForm = (formFields) => {
@@ -209,7 +192,7 @@ const makeForm = (formFields) => {
     let formData = new function(){
         let self = this;
         this.tickets = fields[1],
-        this.ticketQtySel = getArrayFromNum(5, 1),
+        this.ticketQtySel = tools.getArrayFromNum(5, 1),
         this.name = formFields.fields[3], 
         this.email = formFields.fields[4],
         this.phone = formFields.fields[5],
@@ -246,27 +229,6 @@ const makeForm = (formFields) => {
         }
     }();
     
-    const headerContent = (pg) => {
-        console.log(pg)
-        if (pg === 0){
-            return /*html*/ `
-                <h4 class="">$25 Tour de Lucé Registration</h4>
-            `;
-        } else {
-            return /*html*/ `
-            <div class="">
-            <label>Tickets</label>
-            <select id="qty" data-model="qty" type="select">
-                <option value="">select qty</option>
-                ${formData.ticketQtySel.map(q => /*html*/ `
-                    <option value="${q}" data-index="${q-2}">${q}</option>
-                `).join('')}
-            </select>
-        </div>
-            `;
-        }
-    }
-    
     const form = () => {
         
         let f = formData
@@ -280,7 +242,7 @@ const makeForm = (formFields) => {
                     $25 Tour de Lucé Registration
                 </div>
                 <div id="pg1-head" class="pg-1 head">
-                    ${headerContent(state.pg)}
+                    ${Form.headerContent(state.pg, f)}
                 </div>
                 <div id="pg2-head" class="pg-2 head">
                     Payment
@@ -333,9 +295,8 @@ const makeForm = (formFields) => {
         </div>
     `
     };
-   console.log(state)
+    console.log(state)
     modal.querySelector('.body').innerHTML = form(Form);
-    
 }
 
 getData();
