@@ -127,7 +127,7 @@ const getModal = (data) => {
 const getData = () => {
     tools.getDataFields()
     .then((data) => {
-        
+        console.log(data)
         makeForm(data)
         state.data = data;
         console.log(data)

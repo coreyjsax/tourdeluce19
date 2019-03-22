@@ -17,7 +17,7 @@ const form = {
             return /*html*/ `
             <div class="">
             <label>Tickets</label>
-            <select id="qty" name="qty" data-model="qty" type="select" data-fsId="64672703">
+            <select id="qty" name="qty" data-model="qty" type="select" data-fsId="62276956">
                 <option value="">select qty</option>
                 ${formData.ticketQtySel.map(q => /*html*/ `
                     <option value="${q}" data-index="${q-2}">${q}</option>
@@ -103,7 +103,7 @@ const form = {
                 </select>
                 </div>
                 <div class="field">
-                <input type="text" name="card[expire-year]" maxlength="4" placeholder="Year" data-fsId=${data.expiration[0].id}>
+                <input type="text" name="expire-year" maxlength="4" placeholder="Year" data-fsId=${data.expiration[0].id}>
                 </div>
             </div>
             </div>
